@@ -6,8 +6,8 @@ function Laplace_solution()
   d=0.05;                           % peak
   N=80;                            % Number of intervals
   prec=1.0e-5; % pr\'ecision $p$ requise sur le residu
-  alpha=1.0   % param\`etre de relaxation SOR
-  nsel_gs=0;  % s\'electeur de la m\'ethode: 0: Jacobi; 1: Gauss-Seidel
+  alpha=1.0    % param\`etre de relaxation SOR
+  nsel_gs=1;  % s\'electeur de la m\'ethode: 0: Jacobi; 1: Gauss-Seidel
 
 L=0.5;                          % box size
 Tin =37;                         % Body temperature 
@@ -16,7 +16,7 @@ kappa = 1;
 xc=0.2; 
 yc=L/2; 
 r=0.1;          % disc 
-niter=3000; % nombre maximal d'it\'erations
+niter=30000; % nombre maximal d'it\'erations
 
 switch nsel_gs
   case 0
@@ -156,12 +156,20 @@ fs=16; lw=1;
 
 end %---------------------------------------------------------------------------------------------
 
-%TODO: Calculez les composantes Jx et Jy du flux de chaleur (5.1 b) et la
-%puissance totale (5.1.c)
-
 niteractual=j % nombre d'it\'erations accomplies
 nit=niteractual;
 str=([' ',strmethod,' h=',num2str(h,3),' \alpha=',num2str(alpha,3),' nit=',num2str(niteractual,3)]);
+
+%Calcul flux de chaleur
+
+[Jx,Jy]=meshgrid(x,y);
+
+for i=2:(Nx-1)
+  for j=2:(Ny-1)
+    Jx(i,j)=-kappa*(temperature(i+1,j)-temperature(i-1,j))/(2*hx);
+    Jy(i,j)=-kappa*(temperature(i,j+1)-temperature(i,j-1))/(2*hy);
+  end
+end
 
 figure % 1 contour plot of temperature
 %hc=contour(X',Y',temperature,20);
@@ -173,7 +181,15 @@ set(gca,'fontsize',fs)
      axis('equal')
      axis([min(x) max(x) min(y) max(y)])
      colorbar
-
+     
+figure
+hj = quiver(X',Y',Jx,Jy);
+set(gca,'fontsize',fs)
+     xlabel('x [m]')
+     ylabel('y [m]')
+     title(['Contours of T',str])
+     axis('equal')
+     axis([min(x) max(x) min(y) max(y)])
      
 figure % 2 correction (max (temperature-temperatureold)) vs iteration number
 hcorr=plot(corr,'k-');
