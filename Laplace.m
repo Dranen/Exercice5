@@ -199,7 +199,7 @@ hj = quiver(X',Y',Jx,Jy);
 set(gca,'fontsize',fs)
      xlabel('x [m]')
      ylabel('y [m]')
-     title(['Contours of T',str])
+     title(['Champs des flux de chaleurs',str])
      axis('equal')
      axis([min(x) max(x) min(y) max(y)])
      
