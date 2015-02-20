@@ -84,6 +84,16 @@ end
       end
     end
   end
+  
+temperature(1,:)=Tout;
+temperature(end,:)=Tout;
+temperature(:,1)=Tout;
+temperature(:,end)=Tout;
+
+flag(1,:)=1;
+flag(end,:)=1;
+flag(:,1)=1;
+flag(:,end)=1;
 % ==================
 
 nsel_plot=0; % 0/1: do not / do contour plot temperature every iteration with pauses
@@ -170,6 +180,8 @@ for i=2:(Nx-1)
     Jy(i,j)=-kappa*(temperature(i,j+1)-temperature(i,j-1))/(2*hy);
   end
 end
+
+%Calcul de la puissance totale
 
 figure % 1 contour plot of temperature
 %hc=contour(X',Y',temperature,20);
