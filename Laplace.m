@@ -1,4 +1,4 @@
-<pre><div class="text_to_html">% Heat equation solver
+% Heat equation solver
 % M\'ethodes de Jacobi et de Gauss-Seidel avec surrelaxation SOR
 function Laplace_solution()
 
@@ -187,4 +187,4 @@ set(gca,'fontsize',fs)
      ylabel('residual')
      title(['Iterations ',str])
      set(gca,'yscale','log')
-</div></pre>
+
