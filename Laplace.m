@@ -10,7 +10,7 @@ function Laplace_solution()
   nsel_gs=1;  % s\'electeur de la m\'ethode: 0: Jacobi; 1: Gauss-Seidel
 
 L=0.5;                          % box size
-Tin =37;                         % Body temperature 
+Tin =35;                         % Body temperature 
 Tout=-5;                         % Outside temperature
 kappa = 1;
 xc=0.2; 
@@ -176,8 +176,8 @@ str=([' ',strmethod,' h=',num2str(h,3),' \alpha=',num2str(alpha,3),' nit=',num2s
 
 for i=2:(Nx-1)
   for j=2:(Ny-1)
-    Jx(i,j)=-kappa*(temperature(i+1,j)-temperature(i-1,j))/(2*hx);
-    Jy(i,j)=-kappa*(temperature(i,j+1)-temperature(i,j-1))/(2*hy);
+    Jx(i,j)=0.5*(-kappa*(temperature(i+1,j)-temperature(i,j))/hx-kappa*(temperature(i+1,j+1)-temperature(i,j+1))/hx);
+    Jy(i,j)=0.5*(-kappa*(temperature(i,j+1)-temperature(i,j))/hy-kappa*(temperature(i+1,j+1)-temperature(i+1,j))/hy);
   end
 end
 
