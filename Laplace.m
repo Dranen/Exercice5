@@ -12,17 +12,23 @@ function Laplace_solution()
 L=0.5;                          % box size
 Tin =35;                         % Body temperature 
 Tout=-5;                         % Outside temperature
-kappa = 1;
+kappa = 1.0;
 xc=0.2; 
 yc=L/2; 
 r=0.1;          % disc 
 niter=30000; % nombre maximal d'it\'erations
+Ptotal = 0;
+
+xboite = xc-r-L*0.1;
+yboite = yc-r-L*0.1;
+tailleboite_x = 2*r+L*0.2;
+tailleboite_y = 2*r+d+L*0.2;
 
 switch nsel_gs
   case 0
-    strmethod='Jacobi';
+    strmethod='Jacobi'
   case 1
-    strmethod='GS';
+    strmethod='GS'
 end
 
 % ==== mesh and fields
@@ -182,6 +188,40 @@ for i=2:(Nx-1)
 end
 
 %Calcul de la puissance totale
+
+iboitemin=Nx-1;
+iboitemax=2;
+jboitemin=Ny-1;
+jboitemax=2;
+
+for i=2:(Nx-1)
+  for j=2:(Ny-1)      
+      if((X(i,j) > xboite) && (X(i,j) < (xboite+tailleboite_x)) && (Y(i,j) > yboite) && (Y(i,j) < (yboite+tailleboite_y)))
+	      iboitemin=min(i,iboitemin);
+	      iboitemax=max(i,iboitemax);
+	      jboitemin=min(j,jboitemin);
+	      jboitemax=max(j,jboitemax);
+      end
+  end
+end
+
+if iboitemin > iboitemax
+   swap(iboitemin, iboitemax); 
+end
+
+if jboitemin > jboitemax
+   swap(jboitemin, jboitemax); 
+end
+
+for i=iboitemin:iboitemax
+   Ptotal = Ptotal + hx*(-Jy(i,jboitemin)+Jy(i,jboitemax));
+end
+
+for j=jboitemin:jboitemax
+   Ptotal = Ptotal + hy*(-Jx(iboitemin,j)+Jx(iboitemax,j));
+end
+
+Ptotal = Ptotal
 
 figure % 1 contour plot of temperature
 %hc=contour(X',Y',temperature,20);
