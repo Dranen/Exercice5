@@ -177,7 +177,7 @@ for conv = 1:max(size(var))
 
     niteractual=j % nombre d'it\'erations accomplies
     nit=niteractual;
-    str=([' ',strmethod,' h=',num2str(h,3),' \alpha=',num2str(alpha,3),' nit=',num2str(niteractual(conv),3)]);
+    str=([' ',strmethod,' h=',num2str(h,3),' \alpha=',num2str(alpha,3),' nit=',num2str(niteractual,3)]);
  
     %Calcul flux de chaleur
 
