@@ -185,13 +185,19 @@ for conv = 1:max(size(var))
     ietude = 0;
     yetude = 0;
     
-    while(ietude*hx < xetude)
+    while((ietude+0.5)*hx < xetude)
         ietude = ietude +1;
     end
-    while(jetude*hx < yetude)
+    ietude = ietude-1;
+    while((jetude+0.5)*hy < yetude)
         jetude = jetude +1;
     end
-    convtemps(conv) = temperature(ietude,jetude);
+    jetude = jetude-1;
+    a = (1-((xetude/hx)-(ietude+0.5)))*temperature(ietude,jetude+1) + (1-((ietude+1.5)-(xetude/hx)))*temperature(ietude+1,jetude+1);
+    b = (1-((yetude/hy)-(jetude+0.5)))*temperature(ietude+1,jetude) + (1-((jetude+1.5)-(yetude/hy)))*temperature(ietude+1,jetude+1);
+    c = (1-((xetude/hx)-(ietude+0.5)))*temperature(ietude,jetude) + (1-((ietude+1.5)-(xetude/hx)))*temperature(ietude+1,jetude);
+    d = (1-((yetude/hy)-(jetude+0.5)))*temperature(ietude,jetude) + (1-((jetude+1.5)-(yetude/hy)))*temperature(ietude,jetude+1);
+    convtemps(conv) = 0.5*((1-((xetude/hx)-(ietude+0.5)))*d + (1-((ietude+1.5)-(xetude/hx)))*b + (1-((yetude/hy)-(jetude+0.5)))*c + (1-((jetude+1.5)-(yetude/hy)))*a;
 end
 
 figure
