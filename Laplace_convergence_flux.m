@@ -192,7 +192,7 @@ for conv = 1:max(size(var))
       end
     end
 
-    convflux(conv) = max(NormeFlux) 
+    convflux(conv) = max(max(NormeFlux)) 
 end
 
 figure
