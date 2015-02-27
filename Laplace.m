@@ -6,7 +6,7 @@ function Laplace_solution()
   d=0.05;                           % peak
   N=80;                            % Number of intervals
   prec=1.0e-5; % pr\'ecision $p$ requise sur le residu
-  alpha=1.0    % param\`etre de relaxation SOR
+  alpha=1.834    % param\`etre de relaxation SOR
   nsel_gs=1;  % s\'electeur de la m\'ethode: 0: Jacobi; 1: Gauss-Seidel
 
 L=0.5;                          % box size
@@ -179,11 +179,13 @@ str=([' ',strmethod,' h=',num2str(h,3),' \alpha=',num2str(alpha,3),' nit=',num2s
 %Calcul flux de chaleur
 
 [Jx,Jy]=meshgrid(x,y);
+NormeFlux=meshgrid(x,y);
 
 for i=2:(Nx-1)
   for j=2:(Ny-1)
     Jx(i,j)=0.5*(-kappa*(temperature(i+1,j)-temperature(i,j))/hx-kappa*(temperature(i+1,j+1)-temperature(i,j+1))/hx);
     Jy(i,j)=0.5*(-kappa*(temperature(i,j+1)-temperature(i,j))/hy-kappa*(temperature(i+1,j+1)-temperature(i+1,j))/hy);
+    NormeFlux(i,j) = sqrt((Jx(i,j))^2 + (Jy(i,j))^2);
   end
 end
 
@@ -242,6 +244,16 @@ set(gca,'fontsize',fs)
      title(['Champs des flux de chaleurs',str])
      axis('equal')
      axis([min(x) max(x) min(y) max(y)])
+     
+figure
+hc=contourf(X',Y',NormeFlux,20);
+set(gca,'fontsize',fs)
+     xlabel('x [m]')
+     ylabel('y [m]')
+     title(['Norme of flux',str])
+     axis('equal')
+     axis([min(x) max(x) min(y) max(y)])
+     colorbar
      
 figure % 2 correction (max (temperature-temperatureold)) vs iteration number
 hcorr=plot(corr,'k-');
