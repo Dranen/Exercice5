@@ -225,7 +225,7 @@ for conv = 1:max(size(var))
     end
 
     
-    convpower(conv) = Ptotal;
+    convpower(conv) = Ptotal
 end
 
 figure
