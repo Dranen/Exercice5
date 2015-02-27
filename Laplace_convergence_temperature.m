@@ -2,7 +2,7 @@
 % M\'ethodes de Jacobi et de Gauss-Seidel avec surrelaxation SOR
 function Laplace_solution()
 
-var = [50:10:500];
+var = [50:10:500,550:50:1000,1100:100:2000];
 
 xetude = 0.09;
 yetude = 0.25;
@@ -180,10 +180,10 @@ for conv = 1:max(size(var))
 
     niteractual=j % nombre d'it\'erations accomplies
     nit=niteractual;
-    str=([' ',strmethod,' h=',num2str(h,3),' \alpha=',num2str(alpha,3),' nit=',num2str(niteractual(conv),3)]);
+    str=([' ',strmethod,' h=',num2str(h,3),' \alpha=',num2str(alpha,3),' nit=',num2str(niteractual,3)]);
     
     ietude = 0;
-    yetude = 0;
+    jetude = 0;
     
     while((ietude+0.5)*hx < xetude)
         ietude = ietude +1;
@@ -197,7 +197,7 @@ for conv = 1:max(size(var))
     b = (1-((yetude/hy)-(jetude+0.5)))*temperature(ietude+1,jetude) + (1-((jetude+1.5)-(yetude/hy)))*temperature(ietude+1,jetude+1);
     c = (1-((xetude/hx)-(ietude+0.5)))*temperature(ietude,jetude) + (1-((ietude+1.5)-(xetude/hx)))*temperature(ietude+1,jetude);
     d = (1-((yetude/hy)-(jetude+0.5)))*temperature(ietude,jetude) + (1-((jetude+1.5)-(yetude/hy)))*temperature(ietude,jetude+1);
-    convtemps(conv) = 0.5*((1-((xetude/hx)-(ietude+0.5)))*d + (1-((ietude+1.5)-(xetude/hx)))*b + (1-((yetude/hy)-(jetude+0.5)))*c + (1-((jetude+1.5)-(yetude/hy)))*a;
+    convtemps(conv) = 0.5*((1-((xetude/hx)-(ietude+0.5)))*d + (1-((ietude+1.5)-(xetude/hx)))*b + (1-((yetude/hy)-(jetude+0.5)))*c + (1-((jetude+1.5)-(yetude/hy)))*a);
 end
 
 figure
