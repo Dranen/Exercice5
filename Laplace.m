@@ -4,7 +4,7 @@ function Laplace_solution()
 
   % Input parameters
   d=0.05;                           % peak
-  N=80;                            % Number of intervals
+  N=160;                            % Number of intervals
   prec=1.0e-5; % pr\'ecision $p$ requise sur le residu
   alpha=1.834    % param\`etre de relaxation SOR
   nsel_gs=1;  % s\'electeur de la m\'ethode: 0: Jacobi; 1: Gauss-Seidel
@@ -19,10 +19,10 @@ r=0.1;          % disc
 niter=30000; % nombre maximal d'it\'erations
 Ptotal = 0;
 
-xboite = xc-r-L*0.1;
-yboite = yc-r-L*0.1;
-tailleboite_x = 2*r+L*0.2;
-tailleboite_y = 2*r+d+L*0.2;
+xboite = 2*L/N;
+yboite = 2*L/N;
+tailleboite_x = L-4*L/N;
+tailleboite_y = L-4*L/N;
 
 switch nsel_gs
   case 0
@@ -77,7 +77,11 @@ end
       dBD = (i*hx-xb)*(yd-yb) - (j*hy-yb)*(xd-xb);
       dDA = (i*hx-xd)*(ya-yd) - (j*hy-yd)*(xa-xd);
       
-      if(((dAB <= 0.0) && (dBD<=0.0) && (dDA<=0.0) ) || ( d <= r))
+      %if(((dAB <= 0.0) && (dBD<=0.0) && (dDA<=0.0) ) || ( d <= r))
+      %if((i*hx >= xc -r) && (i*hx <= xc +r) && (j*hy >= yc -r) && (j*hy <= xc +r))
+      %if((((i*hx-xc)/r)^2) + (((j*hx-yc)/d)^2) <= 1)
+      %if((0.75*(flag(i-1,j)+flag(i,j-1)) + 1)*rand() > 0.999)
+      %if(((i*hx-xc)<r)&&((j*hy-yc)<d)&&(i*hx>r)&&(j*hy>r))
       	temperature(i,j) = Tin;
 	      flag(i,j) = 1;
 	      imin=min(i,imin);
