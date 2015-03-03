@@ -192,8 +192,8 @@ for conv = 1:max(size(var))
 
     xboite = xc-r-var(conv);
     yboite = yc-r-var(conv);
-    tailleboite_x = 2*r+var(conv);
-    tailleboite_y = 2*r+d+var(conv);
+    tailleboite_x = 2*r+d+2*var(conv);
+    tailleboite_y = 2*r+2*var(conv);
     
     iboitemin=Nx-1;
     iboitemax=2;
