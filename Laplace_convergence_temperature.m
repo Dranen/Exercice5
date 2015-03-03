@@ -2,7 +2,7 @@
 % M\'ethodes de Jacobi et de Gauss-Seidel avec surrelaxation SOR
 function Laplace_solution()
 
-var = [50:10:500,550:50:1000,1100:100:2000];
+var = [50:10:500,550:50:1000];
 
 xetude = 0.09;
 yetude = 0.25;
