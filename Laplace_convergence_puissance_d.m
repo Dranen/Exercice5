@@ -26,6 +26,12 @@ for conv = 1:max(size(var))
     yboite = yc-r-L*0.1;
     tailleboite_x = 2*r+d+L*0.2;
     tailleboite_y = 2*r+L*0.2;
+    
+    xboite = 2*L/N;
+    yboite = 2*L/N;
+    tailleboite_x = L-4*L/N;
+    tailleboite_y = L-4*L/N;
+    
 
     switch nsel_gs
       case 0
