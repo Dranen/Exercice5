@@ -86,8 +86,9 @@ end
        % (i*hx>=0.23 && i*hx<=0.25 && j*hy<=8*hx*i-1.57 && j*hy>=-8*hx*i+2.07) ||...
        % (i*hx>=0.25 && i*hx<=0.27 && j*hy<=-8*hx*i+2.43 && j*hy>=8*hx*i-1.93) ||...
        % (i*hx>=0.27 && i*hx<=0.43 && j*hy<=-1/8*hx*i+0.30375 && j*hy>=1/8*hx*i+0.19625))
-      %if((i*hx>=0.05 && i*hx<=0.25 && (i*hx-0.05)^2+(j*hy-0.05)^2>=0.04 && (i*hx-0.05)^2+(j*hy-0.45)^2>=0.04) ||... 
-       % (i*hx>=0.25 && i*hx<=0.45 && (i*hx-0.45)^2+(j*hy-0.05)^2>=0.04 && (i*hx-0.45)^2+(j*hy-0.45)^2>=0.04))
+      %if((i*hx>=0.05 && i*hx<=0.25 && (i*hx-0.05)^2+(j*hy-0.05)^2>=0.04 && (i*hx-0.05)^2+(j*hy-0.45)^2>=0.04) && j*hy<=0.45 && j*hy>=0.05||... 
+       % (i*hx>=0.25 && i*hx<=0.45 && (i*hx-0.45)^2+(j*hy-0.05)^2>=0.04 && (i*hx-0.45)^2+(j*hy-0.45)^2>=0.04 && j*hy<=0.45 && j*hy>=0.05))
+      %if(i*hx>=0.05 && i*hx<=0.45 && (i*hx-0.05)^2+(j*hy-0.25)^2>=0.04 && (i*hx-0.45)^2+(j*hy-0.25)^2>=0.04 && j*hy<=0.25 && j*hy>=0.05) 
       %if((i*hx>=0.05 && i*hx<=0.25 && (i*hx-0.25)^2+(j*hy-0.25)^2 <=0.04 && (i*hx-0.25)^2+(j*hy-0.35)^2>=0.01) ||...
        % (i*hx>=0.25 && i*hx<=0.35 && (i*hx-0.25)^2+(j*hy-0.15)^2 <0.01))
       	temperature(i,j) = Tin;
@@ -282,4 +283,14 @@ set(gca,'fontsize',fs)
      ylabel('residual')
      title(['Iterations ',str])
      set(gca,'yscale','log')
+     
+figure
+hc=contourf(X',Y',flag,20);
+set(gca,'fontsize',fs)
+     xlabel('x [m]')
+     ylabel('y [m]')
+     title(['forme du corps',str])
+     axis('equal')
+     axis([min(x) max(x) min(y) max(y)])
+     colorbar
 
