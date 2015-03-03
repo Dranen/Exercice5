@@ -4,7 +4,6 @@ function Laplace_solution()
 
 var = [0:0.001:0.1];
 
-for conv = 1:max(size(var))
       % Input parameters
       d=0.05;                           % peak
       N=320;                            % Number of intervals
@@ -21,11 +20,6 @@ for conv = 1:max(size(var))
     r=0.1;          % disc 
     niter=30000; % nombre maximal d'it\'erations
     Ptotal = 0;
-
-    xboite = xc-r-var(conv);
-    yboite = yc-r-var(conv);
-    tailleboite_x = 2*r+var(conv);
-    tailleboite_y = 2*r+d+var(conv);
 
     switch nsel_gs
       case 0
@@ -191,7 +185,16 @@ for conv = 1:max(size(var))
     end
 
     %Calcul de la puissance totale
+    
+for conv = 1:max(size(var))
+    
+    Ptotal =0;
 
+    xboite = xc-r-var(conv);
+    yboite = yc-r-var(conv);
+    tailleboite_x = 2*r+var(conv);
+    tailleboite_y = 2*r+d+var(conv);
+    
     iboitemin=Nx-1;
     iboitemax=2;
     jboitemin=Ny-1;
@@ -225,12 +228,13 @@ for conv = 1:max(size(var))
     end
 
     
-    convpower(conv) = Ptotal;
+    convpower(conv) = Ptotal
+    surface(conv) = tailleboite_x*tailleboite_y;
 end
 
 figure
-loglog(var,convpower)
+loglog(surface,convpower)
 set(gca,'fontsize',fs)
-xlabel('d [m]')
+xlabel('Surface de la boite [m^2]')
 ylabel('Puissance [W]')
 grid on
